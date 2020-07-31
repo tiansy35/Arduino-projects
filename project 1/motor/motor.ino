@@ -110,7 +110,6 @@ void loop()
   else      
   {
     // After moving for a maximum number of steps, stop the motor
-    //stepN=0;
     digitalWrite(Pin1, LOW);
     digitalWrite(Pin2, LOW);
     digitalWrite(Pin3, LOW);
