@@ -22,4 +22,4 @@ MCU - Arduino MEGA2560; WIFI board - Robot-Link V4.0 AR WIFI module
 Time:
 2018.10 - 2018.12
 
-![vehicle](https://github.com/tiansy97/Arduino-projects/raw/master/project%202/vehicle.png =300x)
+<img src="https://github.com/tiansy97/Arduino-projects/raw/master/project%202/vehicle.png" width="100">
