@@ -117,7 +117,7 @@ char Get_Distance() // get the distance from ultrasonic sensor
   delayMicroseconds(10);
   digitalWrite(Trig, LOW);    
   
-  float Ldistance = pulseIn(Echo, HIGH,5000);  // read the time difference between the signal sent and the signal received
+  float Ldistance = pulseIn(Echo,HIGH,5000);  // read the time difference between the signal sent and the signal received
   Ldistance = Ldistance / 5.8 / 10; // compute distance from the time difference (unit:cm)
 
   return Ldistance;
@@ -128,16 +128,16 @@ void Take()
   // Adjust distance to the object in order to safely grasp it
   while ((Get_Distance() < 19)||(Get_Distance() > 20.5))
   {
-      if (Get_Distance() < 19) 
-      { 
-        MOTOR_GO_BACK;
-        delay(20);
-      }
-      if (Get_Distance() > 20.5) 
-      { 
-        MOTOR_GO_FORWARD;
-        delay(20);
-      }      
+    if (Get_Distance() < 19) 
+    { 
+      MOTOR_GO_BACK;
+      delay(20);
+    }
+    if (Get_Distance() > 20.5) 
+    { 
+      MOTOR_GO_FORWARD;
+      delay(20);
+    }      
   }
   
   // Stop the motors
@@ -215,7 +215,6 @@ void loop()
       case 1:     Take(); flag = 2; return;     // manipulation mode
       case 2:     Turn_Around(); flag = 0; return; // turn around and keep tracking lines
     }
-    
   }
   MOTOR_GO_STOP;
 }

@@ -136,6 +136,7 @@ void SendString(char *str)
   Sendbyte(0x0d);
   Sendbyte(0x0a);  
 }
+
 /*
 *********************************************************************************************************
 ** 函数名称 ：Get_uartdata()
@@ -146,34 +147,34 @@ void SendString(char *str)
 */
 void Get_uartdata(void)
 {
-   static int i;
-    serial_data = UDR0;//读取串口
-    if (rec_flag == 0)
+  static int i;
+  serial_data = UDR0;//读取串口
+  if (rec_flag == 0)
+  {
+    if (serial_data == 0xff)//第一次获取到0xff(即包头)
     {
-      if (serial_data == 0xff)//第一次获取到0xff(即包头)
+      rec_flag = 1;
+      i = 0;
+      Costtime = 0;
+    }
+  }
+  else
+  {
+    if (serial_data == 0xff)//第二次获取到0xff(即包尾)
+    {
+      rec_flag = 0;
+      if (i == 3)//获取到中间数据为3个字节，说明此命令格式正确
       {
-        rec_flag = 1;
-        i = 0;
-        Costtime = 0;
+        Communication_Decode();//执行命令解析函数
       }
+      i = 0;
     }
     else
     {
-      if (serial_data == 0xff)//第二次获取到0xff(即包尾)
-      {
-        rec_flag = 0;
-        if (i == 3)//获取到中间数据为3个字节，说明此命令格式正确
-        {
-          Communication_Decode();//执行命令解析函数
-        }
-        i = 0;
-      }
-      else
-      {
-        buffer[i] = serial_data;//暂存数据
-        i++;
-      }
+      buffer[i] = serial_data;//暂存数据
+      i++;
     }
+  }
 }
 
 /*
